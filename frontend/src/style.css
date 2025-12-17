@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: var(--color-neutral-900);
+    --color-secondary: var(--color-neutral-800);
+    --color-tertiary: var(--color-neutral-400);
+
+    --color-highlight-1: var(--color-emerald-500);
+    --color-highlight-2: var(--color-emerald-700);
+
+    --color-accent-1: var(--color-emerald-50);
+    --color-accent-2: var(--color-emerald-100);
+    --color-accent-3: var(--color-emerald-200);
+    --color-accent-4: var(--color-neutral-600);
+
+    --color-char-1: var(--color-neutral-50);
+    --color-char-2: var(--color-neutral-900);
+    --color-char-3: var(--color-neutral-200);
+}
+
+html, body, #root {
+    height: 100%;
+    overflow: hidden;
+}
+
+*:is(.overflow-auto, .overflow-scroll) {
+    scrollbar-width: none;
+    
+}
