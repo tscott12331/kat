@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: 'Rubik';
+    src: url('assets/fonts/Rubik-VariableFont_wght.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @theme {
     --color-primary: var(--color-neutral-900);
     --color-secondary: var(--color-neutral-800);
@@ -16,11 +25,18 @@
     --color-char-1: var(--color-neutral-50);
     --color-char-2: var(--color-neutral-900);
     --color-char-3: var(--color-neutral-200);
+
+    
+    --font-rubik: 'Rubik', sans-serif;
 }
 
 html, body, #root {
     height: 100%;
     overflow: hidden;
+}
+
+button, input, textarea {
+    font-family: inherit;
 }
 
 *:is(.overflow-auto, .overflow-scroll) {
