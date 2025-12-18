@@ -112,7 +112,7 @@ export default function ChatPage() {
     }, []);
 
     return (
-        <div className="h-full p-2.5 bg-secondary flex flex-col text-char-1 font-rubik">
+        <div className="h-full flex flex-col">
             <ChatMessageList chatMessages={chatMessages} />
             <ChatControls />
         </div>
