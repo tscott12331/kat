@@ -14,7 +14,7 @@ export default function Tab({
     tab,
     onTabEdited,
 }: ITabProps) {
-    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [isEditing, setIsEditing] = useState<boolean>(tab.channelName === "");
 
 
     const handleEditFinished = (newChannel: string) => {

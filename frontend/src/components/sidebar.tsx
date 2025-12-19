@@ -1,120 +1,30 @@
 import { useState } from 'react';
-import { ITab } from './tab';
+import Tab, { ITab } from './tab';
 import TabList from './tab-list';
 import SidebarTopControls from './sidebar-top-controls';
 
 export default function Sidebar() {
-    const [tabs, setTabs] = useState<ITab[]>([
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: true,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-        {
-            channelName: "xqc",
-            isSelected: false,
-        },
-        {
-            channelName: "trainwreckstv",
-            isSelected: false,
-        },
-    ]);
+    const [tabs, setTabs] = useState<ITab[]>([]);
 
     const handleTabEdited = (channelIndex: number, newChannel: string) => {
         setTabs((cur) => {
-            cur[channelIndex].channelName = newChannel;
+            if(newChannel === "") {
+                // invalid channel name
+                cur = [...cur.splice(0, channelIndex), ...cur.splice(channelIndex + 1)];
+            } else {
+                cur[channelIndex].channelName = newChannel;
+            }
             return cur;
+        })
+    }
+
+    const handleAddTab = () => {
+        setTabs((cur) => {
+            const newTab: ITab = {
+                channelName: "",
+                isSelected: false,
+            }
+            return [...cur, newTab];
         })
     }
     
@@ -123,7 +33,9 @@ export default function Sidebar() {
             <div 
                 className={`flex flex-col gap-1.5 bg-tertiary w-1.5 h-1/2 rounded-r-sm border-y-2 border-r-2 border-accent-4 transition-[width,height] *:invisible`}
             >
-                <SidebarTopControls />
+                <SidebarTopControls 
+                    onAddTab={handleAddTab}
+                />
                 <TabList 
                     tabs={tabs}
                     onTabEdited={handleTabEdited}
