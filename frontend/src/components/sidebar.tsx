@@ -47,6 +47,31 @@ export default function Sidebar() {
             return [...cur.slice(0, tabIndex), ...cur.slice(tabIndex + 1)];
         })
     }
+
+    const handleTabSelected = (tabIndex: number) => {
+        setTabs((cur) => {
+            const selectedTab = cur.at(tabIndex);
+            if(!selectedTab) return cur;
+
+
+            const newTabs = [...cur].map((t) => {
+                if(t === selectedTab) {
+                    const updatedTab = Object.assign({}, t);
+                    updatedTab.isSelected = true;
+                    return updatedTab;
+                } else if(t.isSelected = true) {
+                    const updatedTab = Object.assign({}, t);
+                    updatedTab.isSelected = false;
+                    return updatedTab;
+                } else {
+                    return t;
+                }
+            });
+
+            return newTabs;
+        })
+        
+    }
     
     return (
         <div className="absolute flex items-center inset-0 w-2.5 hover:w-40 transition-[width] hover:*:w-full hover:*:p-1.5 hover:*:border-y-0 hover:*:h-full hover:**:visible">
@@ -60,6 +85,7 @@ export default function Sidebar() {
                     tabs={tabs}
                     onTabEdited={handleTabEdited}
                     onTabRemoved={handleTabRemoved}
+                    onTabSelected={handleTabSelected}
                 ></TabList>
             </div>
         </div>
