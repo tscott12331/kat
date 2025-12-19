@@ -16,7 +16,7 @@ export default function TabList({
             {tabs.map((t, i) =>
                 <Tab 
                 tab={t} 
-                key={i} 
+                key={t.channelName + i} 
                 onTabEdited={(newChannel) => onTabEdited?.(i, newChannel)}
                 onTabRemoved={() => onTabRemoved?.(i)}
                 />

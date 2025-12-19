@@ -1,20 +1,22 @@
 import { useState } from 'react';
-import Tab, { ITab } from './tab';
+import { ITab } from './tab';
 import TabList from './tab-list';
 import SidebarTopControls from './sidebar-top-controls';
 
 export default function Sidebar() {
     const [tabs, setTabs] = useState<ITab[]>([]);
 
+
     const handleTabEdited = (tabIndex: number, newChannel: string) => {
         setTabs((cur) => {
             if(newChannel === "") {
                 // invalid channel name
-                cur = [...cur.splice(0, tabIndex), ...cur.splice(tabIndex + 1)];
+                return [...cur.slice(0, tabIndex), ...cur.slice(tabIndex + 1)];
             } else {
-                cur[tabIndex].channelName = newChannel;
+                const newTabs = [...cur];
+                newTabs[tabIndex].channelName = newChannel;
+                return newTabs;
             }
-            return cur;
         })
     }
 
@@ -23,15 +25,14 @@ export default function Sidebar() {
             const newTab: ITab = {
                 channelName: "",
                 isSelected: false,
-            }
+            };
             return [...cur, newTab];
         })
     }
 
     const handleTabRemoved = (tabIndex: number) => {
         setTabs((cur) => {
-            console.log('we here');
-            return cur = [...cur.splice(0, tabIndex), ...cur.splice(tabIndex + 1)];
+            return [...cur.slice(0, tabIndex), ...cur.slice(tabIndex + 1)];
         })
     }
     

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export interface ITab {
     channelName: string;
@@ -48,6 +48,7 @@ export default function Tab({
             className={`${!isEditing ? 'invisible w-0 -mr-0.5' : ''} max-w-4/5`}
             onKeyDown={handleInputKeyDown}
             defaultValue={tab.channelName}
+            disabled={!isEditing}
             ref={(input) => input && input.focus()}
         />
         <p className={`${isEditing ? 'hidden!' : ''} max-w-4/5 text-ellipsis overflow-hidden whitespace-nowrap`} >{tab.channelName}</p>
