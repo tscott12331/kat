@@ -2,12 +2,14 @@ import Tab, { ITab } from "./tab";
 
 interface ITabListProps {
     tabs: ITab[];
-    onTabEdited?: (channelIndex: number, newChannel: string) => void;
+    onTabEdited?: (tabIndex: number, newChannel: string) => void;
+    onTabRemoved?: (tabIndex: number) => void;
 }
 
 export default function TabList({
     tabs,
     onTabEdited,
+    onTabRemoved,
 }: ITabListProps) {
     return (
         <div className="grow flex flex-col gap-1 py-1.5 border-y border-y-accent-4 overflow-auto">
@@ -16,6 +18,7 @@ export default function TabList({
                 tab={t} 
                 key={i} 
                 onTabEdited={(newChannel) => onTabEdited?.(i, newChannel)}
+                onTabRemoved={() => onTabRemoved?.(i)}
                 />
             )}
         </div>

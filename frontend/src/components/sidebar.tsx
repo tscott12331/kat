@@ -6,13 +6,13 @@ import SidebarTopControls from './sidebar-top-controls';
 export default function Sidebar() {
     const [tabs, setTabs] = useState<ITab[]>([]);
 
-    const handleTabEdited = (channelIndex: number, newChannel: string) => {
+    const handleTabEdited = (tabIndex: number, newChannel: string) => {
         setTabs((cur) => {
             if(newChannel === "") {
                 // invalid channel name
-                cur = [...cur.splice(0, channelIndex), ...cur.splice(channelIndex + 1)];
+                cur = [...cur.splice(0, tabIndex), ...cur.splice(tabIndex + 1)];
             } else {
-                cur[channelIndex].channelName = newChannel;
+                cur[tabIndex].channelName = newChannel;
             }
             return cur;
         })
@@ -27,6 +27,13 @@ export default function Sidebar() {
             return [...cur, newTab];
         })
     }
+
+    const handleTabRemoved = (tabIndex: number) => {
+        setTabs((cur) => {
+            console.log('we here');
+            return cur = [...cur.splice(0, tabIndex), ...cur.splice(tabIndex + 1)];
+        })
+    }
     
     return (
         <div className="absolute flex items-center inset-0 w-2.5 hover:w-40 transition-[width] hover:*:w-full hover:*:p-1.5 hover:*:border-y-0 hover:*:h-full hover:**:visible">
@@ -39,6 +46,7 @@ export default function Sidebar() {
                 <TabList 
                     tabs={tabs}
                     onTabEdited={handleTabEdited}
+                    onTabRemoved={handleTabRemoved}
                 ></TabList>
             </div>
         </div>

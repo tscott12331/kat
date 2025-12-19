@@ -8,14 +8,20 @@ export interface ITab {
 interface ITabProps {
     tab: ITab;
     onTabEdited?: (newChannel: string) => void;
+    onTabRemoved?: () => void;
 }
 
 export default function Tab({
     tab,
     onTabEdited,
+    onTabRemoved,
 }: ITabProps) {
     const [isEditing, setIsEditing] = useState<boolean>(tab.channelName === "");
 
+
+    const handleTabRemoved = () => {
+        onTabRemoved?.();
+    }
 
     const handleEditFinished = (newChannel: string) => {
         setIsEditing(false);
@@ -35,10 +41,11 @@ export default function Tab({
     return (
         <div 
             className={`${tab.isSelected ? 'bg-highlight-2/10 ring ring-accent-1 ring-inset' : 'bg-primary/30'} hover:bg-highlight-2/20 flex gap-0.5 p-2.5 rounded-xl`}
+            onAuxClick={handleTabRemoved}
         >
         <input 
             onBlur={handleInputBlur}
-            className={`${!isEditing ? 'invisible w-0 -mr-0.5' : ''} max-w-full`}
+            className={`${!isEditing ? 'invisible w-0 -mr-0.5' : ''} max-w-4/5`}
             onKeyDown={handleInputKeyDown}
             defaultValue={tab.channelName}
             ref={(input) => input && input.focus()}
@@ -46,9 +53,10 @@ export default function Tab({
         <p className={`${isEditing ? 'hidden!' : ''} max-w-4/5 text-ellipsis overflow-hidden whitespace-nowrap`} >{tab.channelName}</p>
         <button
             className="ml-auto"
-            onClick={() => setIsEditing((cur) => !cur)}
+            onMouseDownCapture={() => isEditing && handleTabRemoved()}
+            onClickCapture={() => setIsEditing(true)}
         >
-        {!isEditing && 'e'}
+        {isEditing ? 'x' : 'e'}
         </button>
         </div>
     )
