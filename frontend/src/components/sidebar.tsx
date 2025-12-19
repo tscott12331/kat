@@ -12,9 +12,21 @@ export default function Sidebar() {
             if(newChannel === "") {
                 // invalid channel name
                 return [...cur.slice(0, tabIndex), ...cur.slice(tabIndex + 1)];
+            } 
+            const newTabs = [...cur];
+
+            // look for tab that already references this channel
+            const existingIndex = newTabs.findIndex((t) => t.channelName === newChannel);
+            if(existingIndex !== -1 && existingIndex != tabIndex) {
+                // remove tab
+                return [...cur.slice(0, tabIndex), ...cur.slice(tabIndex + 1)];
             } else {
-                const newTabs = [...cur];
-                newTabs[tabIndex].channelName = newChannel;
+                // tab has not been added, add it
+                
+                // copy values of prev tab to avoid mutation
+                const newTabObj = Object.assign({}, newTabs[tabIndex]);
+                newTabObj.channelName = newChannel;
+                newTabs[tabIndex] = newTabObj;
                 return newTabs;
             }
         })
