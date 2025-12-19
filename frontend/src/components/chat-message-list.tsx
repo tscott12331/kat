@@ -9,8 +9,8 @@ export default function ChatMessageList({
 }: IChatMessageListProps) {
     return (
         <div className="grow bg-primary border-x border-t rounded-t-lg border-accent-4 overflow-auto">
-            {chatMessages.map(cm => 
-                <ChatMessage chatMessage={cm} />
+            {chatMessages.map((cm, i) => 
+                <ChatMessage chatMessage={cm} key={i} />
             )}
         </div>
     )

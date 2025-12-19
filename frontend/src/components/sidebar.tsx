@@ -111,6 +111,12 @@ export default function Sidebar() {
         },
     ]);
 
+    const handleTabEdited = (channelIndex: number, newChannel: string) => {
+        setTabs((cur) => {
+            cur[channelIndex].channelName = newChannel;
+            return cur;
+        })
+    }
     
     return (
         <div className="absolute flex items-center inset-0 w-2.5 hover:w-40 transition-[width] hover:*:w-full hover:*:p-1.5 hover:*:border-y-0 hover:*:h-full hover:**:visible">
@@ -118,7 +124,10 @@ export default function Sidebar() {
                 className={`flex flex-col gap-1.5 bg-tertiary w-1.5 h-1/2 rounded-r-sm border-y-2 border-r-2 border-accent-4 transition-[width,height] *:invisible`}
             >
                 <SidebarTopControls />
-                <TabList tabs={tabs}></TabList>
+                <TabList 
+                    tabs={tabs}
+                    onTabEdited={handleTabEdited}
+                ></TabList>
             </div>
         </div>
     );
