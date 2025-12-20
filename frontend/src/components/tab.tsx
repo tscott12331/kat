@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 export interface ITab {
     channelName: string;
@@ -40,7 +41,7 @@ export default function Tab({
         }
     }
 
-    const handleTabClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleTabClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.stopPropagation();
         onTabSelected?.();
     }
@@ -56,10 +57,11 @@ export default function Tab({
     }
 
     return (
-        <div 
+        <Link 
             className={`${tab.isSelected ? 'bg-highlight-2/10 ring ring-accent-1 ring-inset' : 'bg-primary/30'} hover:bg-highlight-2/20 flex gap-0.5 p-2.5 rounded-xl`}
             onAuxClick={handleTabRemoved}
             onClick={handleTabClick}
+            to={`/?channel=${tab.channelName}`}
         >
         <input 
             onBlur={handleInputBlur}
@@ -77,6 +79,6 @@ export default function Tab({
         >
         {isEditing ? 'x' : 'e'}
         </button>
-        </div>
+        </Link>
     )
 }
